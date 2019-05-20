@@ -15,18 +15,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.util.*;
 import javafx.geometry.Insets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 
 public class Projekt extends Application
@@ -166,17 +161,14 @@ public class Projekt extends Application
         
         
         VBox panel_przyciski = new VBox();
-     //   panel_przyciski.setStyle("-fx-background-color: lightgrey");
         panel_przyciski.setMinSize(200,400);
         panel_przyciski.setSpacing(30);
         panel_przyciski.setAlignment(Pos.CENTER);
         
         kontener.getChildren().add(panel_przyciski);
-     //  panel_przyciski.getChildren().addAll(menuLabel, a_dodaj, a_usun, a_edytuj, a_odczyt, wyloguj);
-        
+     
         
         VBox panel_dane= new VBox();
-    //    panel_dane.setStyle("-fx-background-color: grey");
         panel_dane.setMinSize(600,200);
         panel_dane.setAlignment(Pos.CENTER);
         
@@ -190,7 +182,6 @@ public class Projekt extends Application
         HBox panel_login = new HBox();
         panel_login.setMinWidth(200);
          panel_login.setAlignment(Pos.CENTER_LEFT);
-         //panel_pesel.setStyle("-fx-background-color: green;");
          panel_login.setSpacing(15);
          panel_login.setMinHeight(80);
          
@@ -202,9 +193,8 @@ public class Projekt extends Application
          loginField.setMinWidth(200);
          
          HBox panel_haslo = new HBox();
-        panel_haslo.setMinWidth(200);
+         panel_haslo.setMinWidth(200);
          panel_haslo.setAlignment(Pos.CENTER_LEFT);
-         //panel_pesel.setStyle("-fx-background-color: green;");
          panel_haslo.setSpacing(15);
          panel_haslo.setMinHeight(80);
          
@@ -260,15 +250,15 @@ public class Projekt extends Application
 
              try{
              
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=ApBaz;user=admin;password=qaz1234;");
 
                 String sql = "select login from administrator where login='"+loginString+"' and haslo='"+hasloString+"';";
                 preparedStatement = con.prepareStatement(sql);
                 ResultSet rs = preparedStatement.executeQuery();
-               if (rs != null && !rs.isClosed() && rs.next())
+                 if (rs != null && !rs.isClosed() && rs.next())
                 {
-                czyAdmin=1;
+                    czyAdmin=1;
                 }
 
                 
@@ -283,15 +273,15 @@ public class Projekt extends Application
               if(czyAdmin == 0){  
               try{
              
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=ApBaz;user=admin;password=qaz1234;");
 
                 String sql2 = "select login from uzytkownik where login='"+loginString+"' and haslo='"+hasloString+"';";
                 preparedStatement = con.prepareStatement(sql2);
                 ResultSet rs2 = preparedStatement.executeQuery();
-              /*  is sprawdzasz przez*/ if (rs2 != null && !rs2.isClosed() && rs2.next())
+                 if (rs2 != null && !rs2.isClosed() && rs2.next())
                 {
-                czyKlient=1;
+                    czyKlient=1;
                 }
               }
               catch(SQLException error_polaczenie) {
@@ -330,15 +320,10 @@ public class Projekt extends Application
             
              }
              else if( czyKlient == 1){
-  
-              
-                 
-                 
+
               try{
                         
-                  
-                  
-                  
+
                   Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                         con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=ApBaz;user=admin;password=qaz1234;");
                         
@@ -359,14 +344,13 @@ public class Projekt extends Application
                             
                         query2.executeUpdate(sql2);
 
-                        con.close();
-//       
+                        con.close();  
               
                         }
                     catch(SQLException error_polaczenie) {
-                    panel_dane.getChildren().add(failPolaczenie);}
+                        panel_dane.getChildren().add(failPolaczenie);}
                     catch(ClassNotFoundException error_sterownik) {
-                    panel_dane.getChildren().add(fail);}   
+                        panel_dane.getChildren().add(fail);}   
                  
              gorny_panel.getChildren().clear();
              gorny_panel.getChildren().add(naglowek_user_panel);
@@ -380,7 +364,7 @@ public class Projekt extends Application
         
                  
              }
-             System.out.println("czyAdmin = " + czyAdmin + " czyKlient = " + czyKlient +" |||| logowanie");
+          //   System.out.println("czyAdmin = " + czyAdmin + " czyKlient = " + czyKlient +" |||| logowanie");
 
              
          });
@@ -405,7 +389,7 @@ public class Projekt extends Application
              
              czyAdmin=0;
              czyKlient=0;
-             System.out.println("czyAdmin = " + czyAdmin + " czyKlient = " + czyKlient +" |||| wyloguj");
+        //     System.out.println("czyAdmin = " + czyAdmin + " czyKlient = " + czyKlient +" |||| wyloguj");
          });
          
          Label user_add = new Label("Dodaj użytkownika");
@@ -488,7 +472,7 @@ public class Projekt extends Application
             });
             
             
-            Label user_delete = new Label("Usuń użytkownika");
+         Label user_delete = new Label("Usuń użytkownika");
          user_delete.setId("a_user");
          user_delete.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
          
@@ -497,9 +481,9 @@ public class Projekt extends Application
          user_deleted.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
          
          Button delete_user=new Button("Usuń");
-        delete_user.setMinSize(120,30);
-        delete_user.setId("log_button");
-        delete_user.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm()); 
+         delete_user.setMinSize(120,30);
+         delete_user.setId("log_button");
+         delete_user.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm()); 
         
          Label user_not_exist = new Label("Nie istnieje taka nazwa konta, spróbuj ponownie.");
          user_not_exist.setId("user_error");
@@ -544,24 +528,21 @@ public class Projekt extends Application
                             Statement query = con.createStatement();
                             query.executeUpdate(sql2);
                             panel_dane.getChildren().add(user_deleted);
-                            
-                            
-                            
+           
                             
                         }
                         else{
                             panel_dane.getChildren().add(user_not_exist);
                             
                         }
-                        
 
                         con.close();
               
                         }
                     catch(SQLException error_polaczenie) {
-                    panel_dane.getChildren().add(failPolaczenie);}
+                        panel_dane.getChildren().add(failPolaczenie);}
                     catch(ClassNotFoundException error_sterownik) {
-                    panel_dane.getChildren().add(fail);}
+                        panel_dane.getChildren().add(fail);}
              
                 });
                 
@@ -569,7 +550,7 @@ public class Projekt extends Application
             
             
              
-            Label user_edit = new Label("Edytuj użytkownika");
+         Label user_edit = new Label("Edytuj użytkownika");
          user_edit.setId("a_user");
          user_edit.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
          
@@ -584,10 +565,9 @@ public class Projekt extends Application
          edit_user.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm()); 
         
          
-           HBox panel_login2 = new HBox();
-        panel_login2.setMinWidth(200);
+         HBox panel_login2 = new HBox();
+         panel_login2.setMinWidth(200);
          panel_login2.setAlignment(Pos.CENTER_LEFT);
-         //panel_pesel.setStyle("-fx-background-color: green;");
          panel_login2.setSpacing(15);
          panel_login2.setMinHeight(80);
          
@@ -679,18 +659,18 @@ public class Projekt extends Application
               
                         }
                     catch(SQLException error_polaczenie) {
-                    panel_dane.getChildren().add(failPolaczenie);}
+                        panel_dane.getChildren().add(failPolaczenie);}
                     catch(ClassNotFoundException error_sterownik) {
-                    panel_dane.getChildren().add(fail);}
+                        panel_dane.getChildren().add(fail);}
              
                 });
                 
             });
-            ScrollPane scroll = new ScrollPane();
-            scroll.setPrefSize(600,300);
-            scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-            scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-            scroll.setStyle("-fx-background-color: green;");
+//            ScrollPane scroll = new ScrollPane();
+//            scroll.setPrefSize(600,300);
+//            scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+//            scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+//            scroll.setStyle("-fx-background-color: green;");
             
             try
         {
@@ -737,7 +717,7 @@ public class Projekt extends Application
             {
                 boxes[i].getChildren().clear();
             }
-                panel_dane_srodek.getChildren().clear();
+             panel_dane_srodek.getChildren().clear();
              panel_dane_srodek.getChildren().addAll(boxes);
              try
             {
@@ -752,7 +732,6 @@ public class Projekt extends Application
                     int i=1,j;
                     for (j=0;j<boxes.length;j++)
                     {
-                        Label przerwa=new Label("|");
                         Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                 
                         boxes[j].getChildren().addAll(kolumna);                       
                         i++;
@@ -846,10 +825,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_klient="select * from klient";
-                ResultSet wynik_zapyt_klient = zapyt.executeQuery(sql_klient);          
-                ResultSetMetaData wynik_kol_klient = wynik_zapyt_klient.getMetaData();
-                ile_kolumn_klient = wynik_kol_klient.getColumnCount();
+                String sql="select * from klient";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_klient = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -873,10 +852,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_lekarz="select * from lekarz";
-                ResultSet wynik_zapyt_lekarz = zapyt.executeQuery(sql_lekarz);          
-                ResultSetMetaData wynik_kol_lekarz = wynik_zapyt_lekarz.getMetaData();
-                ile_kolumn_lekarz = wynik_kol_lekarz.getColumnCount();
+                String sql="select * from lekarz";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_lekarz = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -902,10 +881,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_recepta="select * from recepta";
-                ResultSet wynik_zapyt_recepta = zapyt.executeQuery(sql_recepta);          
-                ResultSetMetaData wynik_kol_recepta = wynik_zapyt_recepta.getMetaData();
-                ile_kolumn_recepta = wynik_kol_recepta.getColumnCount();
+                String sql="select * from recepta";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_recepta = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -931,10 +910,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_wizyta="select * from wizyta";
-                ResultSet wynik_zapyt_wizyta = zapyt.executeQuery(sql_wizyta);          
-                ResultSetMetaData wynik_kol_wizyta = wynik_zapyt_wizyta.getMetaData();
-                ile_kolumn_wizyta = wynik_kol_wizyta.getColumnCount();
+                String sql="select * from wizyta";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_wizyta = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -961,10 +940,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_wizyta="select * from skierowanie";
-                ResultSet wynik_zapyt_wizyta = zapyt.executeQuery(sql_wizyta);          
-                ResultSetMetaData wynik_kol_wizyta = wynik_zapyt_wizyta.getMetaData();
-                ile_kolumn_skierowanie = wynik_kol_wizyta.getColumnCount();
+                String sql="select * from skierowanie";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_skierowanie = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -990,10 +969,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_wizyta="select * from adres";
-                ResultSet wynik_zapyt_wizyta = zapyt.executeQuery(sql_wizyta);          
-                ResultSetMetaData wynik_kol_wizyta = wynik_zapyt_wizyta.getMetaData();
-                ile_kolumn_adres = wynik_kol_wizyta.getColumnCount();
+                String sql="select * from adres";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_adres = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -1020,10 +999,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_wizyta="select * from zwolnienie";
-                ResultSet wynik_zapyt_wizyta = zapyt.executeQuery(sql_wizyta);          
-                ResultSetMetaData wynik_kol_wizyta = wynik_zapyt_wizyta.getMetaData();
-                ile_kolumn_zwolnienie = wynik_kol_wizyta.getColumnCount();
+                String sql="select * from zwolnienie";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_zwolnienie = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -1050,10 +1029,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_wizyta="select * from sprzet";
-                ResultSet wynik_zapyt_wizyta = zapyt.executeQuery(sql_wizyta);          
-                ResultSetMetaData wynik_kol_wizyta = wynik_zapyt_wizyta.getMetaData();
-                ile_kolumn_sprzet = wynik_kol_wizyta.getColumnCount();
+                String sql="select * from sprzet";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_sprzet = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -1080,10 +1059,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_wizyta="select * from rejestracja";
-                ResultSet wynik_zapyt_wizyta = zapyt.executeQuery(sql_wizyta);          
-                ResultSetMetaData wynik_kol_wizyta = wynik_zapyt_wizyta.getMetaData();
-                ile_kolumn_rejestracja = wynik_kol_wizyta.getColumnCount();
+                String sql="select * from rejestracja";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_rejestracja = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -1131,7 +1110,7 @@ public class Projekt extends Application
                                 for (j=0;j<boxes_klient.length;j++)
                                 {
                                     Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                
-                                     boxes_klient[j].getChildren().addAll(kolumna);                       
+                                    boxes_klient[j].getChildren().addAll(kolumna);                       
                                     i++;
                                 }
                             } 
@@ -1170,7 +1149,7 @@ public class Projekt extends Application
                                 for (j=0;j<boxes_lekarz.length;j++)
                                 {
                                     Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                
-                                     boxes_lekarz[j].getChildren().addAll(kolumna);                       
+                                    boxes_lekarz[j].getChildren().addAll(kolumna);                       
                                     i++;
                                 }
                             } 
@@ -1209,7 +1188,7 @@ public class Projekt extends Application
                                 for (j=0;j<boxes_recepta.length;j++)
                                 {
                                     Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                
-                                     boxes_recepta[j].getChildren().addAll(kolumna);                       
+                                    boxes_recepta[j].getChildren().addAll(kolumna);                       
                                     i++;
                                 }
                             } 
@@ -1249,7 +1228,7 @@ public class Projekt extends Application
                                 for (j=0;j<boxes_wizyta.length;j++)
                                 {
                                     Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                
-                                     boxes_wizyta[j].getChildren().addAll(kolumna);                       
+                                    boxes_wizyta[j].getChildren().addAll(kolumna);                       
                                     i++;
                                 }
                             } 
@@ -1288,7 +1267,7 @@ public class Projekt extends Application
                                 for (j=0;j<boxes_recepta.length;j++)
                                 {
                                     Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                
-                                     boxes_skierowanie[j].getChildren().addAll(kolumna);                       
+                                    boxes_skierowanie[j].getChildren().addAll(kolumna);                       
                                     i++;
                                 }
                             } 
@@ -1328,7 +1307,7 @@ public class Projekt extends Application
                                 for (j=0;j<boxes_adres.length;j++)
                                 {
                                     Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                
-                                     boxes_adres[j].getChildren().addAll(kolumna);                       
+                                    boxes_adres[j].getChildren().addAll(kolumna);                       
                                     i++;
                                 }
                             } 
@@ -1367,7 +1346,7 @@ public class Projekt extends Application
                                 for (j=0;j<boxes_rejestracja.length;j++)
                                 {
                                     Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                
-                                     boxes_rejestracja[j].getChildren().addAll(kolumna);                       
+                                    boxes_rejestracja[j].getChildren().addAll(kolumna);                       
                                     i++;
                                 }
                             } 
@@ -1406,7 +1385,7 @@ public class Projekt extends Application
                                 for (j=0;j<boxes_sprzet.length;j++)
                                 {
                                     Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                
-                                     boxes_sprzet[j].getChildren().addAll(kolumna);                       
+                                    boxes_sprzet[j].getChildren().addAll(kolumna);                       
                                     i++;
                                 }
                             } 
@@ -1445,7 +1424,7 @@ public class Projekt extends Application
                                 for (j=0;j<boxes_zwolnienie.length;j++)
                                 {
                                     Label kolumna=new Label(" | "+wynik_zapytania.getString(i));                
-                                     boxes_zwolnienie[j].getChildren().addAll(kolumna);                       
+                                    boxes_zwolnienie[j].getChildren().addAll(kolumna);                       
                                     i++;
                                 }
                             } 
@@ -1462,23 +1441,12 @@ public class Projekt extends Application
                   
                   });
                         
-                        
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
+
               });
               
+
               
-              
-              
-              
-              
-               Label proc_read = new Label("Odczytaj procedurę");
+         Label proc_read = new Label("Odczytaj procedurę");
          proc_read.setId("a_user");
          proc_read.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
          
@@ -1555,7 +1523,7 @@ public class Projekt extends Application
               
               
                     
-               Label kwer_read = new Label("Odczytaj kwerendę");
+                Label kwer_read = new Label("Odczytaj kwerendę");
                 kwer_read.setId("a_user");
                 kwer_read.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
          
@@ -1569,10 +1537,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_recepta="select klient.imie, klient.nazwisko, miasto.nazwa, adres.ulica, adres.nr_domu into #tab1 from klient join miasto on klient.id_miasto = miasto.id_miasto join adres on miasto.id_miasto=adres.id_adres; select * from #tab1;";
-                ResultSet wynik_zapyt_recepta = zapyt.executeQuery(sql_recepta);          
-                ResultSetMetaData wynik_kol_recepta = wynik_zapyt_recepta.getMetaData();
-                ile_kolumn_kwerenda = wynik_kol_recepta.getColumnCount();
+                String sql="select klient.imie, klient.nazwisko, miasto.nazwa, adres.ulica, adres.nr_domu into #tab1 from klient join miasto on klient.id_miasto = miasto.id_miasto join adres on miasto.id_miasto=adres.id_adres; select * from #tab1;";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_kwerenda = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
@@ -1632,7 +1600,7 @@ public class Projekt extends Application
               
               
                      
-               Label trigg_read = new Label("Odczytaj wynik wyzwalacza");
+                Label trigg_read = new Label("Odczytaj wynik wyzwalacza");
                 trigg_read.setId("a_user");
                 trigg_read.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
          
@@ -1646,10 +1614,10 @@ public class Projekt extends Application
         
         
                 Statement zapyt = con.createStatement(); 
-                String sql_recepta="select * from uzytkownicy_zmiany;";
-                ResultSet wynik_zapyt_recepta = zapyt.executeQuery(sql_recepta);          
-                ResultSetMetaData wynik_kol_recepta = wynik_zapyt_recepta.getMetaData();
-                ile_kolumn_wyzwalacz = wynik_kol_recepta.getColumnCount();
+                String sql="select * from uzytkownicy_zmiany;";
+                ResultSet wynik_zapyt = zapyt.executeQuery(sql);          
+                ResultSetMetaData wynik_kol = wynik_zapyt.getMetaData();
+                ile_kolumn_wyzwalacz = wynik_kol.getColumnCount();
                 zapyt.close();
                 con.close();            
             }
